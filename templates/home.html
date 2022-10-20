@@ -1,0 +1,14 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Welcome To Quiz App</h1>
+    <h2>Select a category below to play: </h2>
+    <ul>
+        {% for category in categories %}
+        <a href="{% url 'category' category.id %}"><li>{{category.name}}</li></a> 
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

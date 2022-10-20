@@ -1,0 +1,22 @@
+{% extends  'main.html' %}
+{% block content %}
+
+<div class="container">
+{% for pseudo_category in pseudo_categories %}
+    <h1 style="color: yellowgreen;">{{pseudo_category.name}}</h1>
+    {% for question in pseudo_category.questions %}
+    <h4>{{question.question}}</h4>
+    <p>a. {{question.a}}</p>
+    <p>b. {{question.b}}</p>
+    <p>c. {{question.c}}</p>
+    <p>d. {{question.d}}</p>
+    <p>e. {{question.e}}</p>
+    <a style="margin-bottom: 50px;" class="btn btn-danger" href="{% url 'delete_question' question.id %}">Delete Question</a>
+    <a style="margin-bottom: 50px;" class="btn btn-info" href="{% url 'edit_question' question.id %}">Edit</a>
+    {% endfor %}
+    <p><a href="{% url 'add-to-category' pseudo_category.id %}" class="btn btn-success" >Add a Question in this Category</a></p>
+
+
+{% endfor %}
+</div>
+{% endblock %}

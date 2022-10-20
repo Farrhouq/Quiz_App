@@ -1,0 +1,27 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<h1>{{category}}</h1>
+
+<div class="container" >
+<table class="table ">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Score</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for score_set in pseudo_scores %}
+      <tr >
+        <th scope="row">{{score_set.position}}</th>
+        <td>{{score_set.name}}</td>
+        <td>{{score_set.score}}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<h1>Select category below: </h1>
+{% for category in categories %}
+<p><a href="{% url 'view_high_scores' category.id  %}">{{category}}</a></p>
+{% endfor %}
+{% endblock %}

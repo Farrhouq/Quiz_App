@@ -1,0 +1,41 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="container">
+  
+    <form action="{% url 'results' %}" method="POST">
+        {% csrf_token %}
+        <fieldset>
+            {% for question in questions %}
+            <div style="background-color: rgb(117, 169, 212);width:25%;padding:10px;color: aliceblue;margin: 20px;">
+        <legend>{{question.question}}</legend>
+        <div>
+          <input type="radio" id="a" name="{{question.id}}" value="a">
+          <label for="a">{{question.a}}</label>
+        </div> 
+        <div>
+          <input type="radio" id="b" name="{{question.id}}" value="b">
+          <label for="b">{{question.b}}</label>
+        </div>
+        <div>
+            <input type="radio" id="c" name="{{question.id}}" value="c">
+            <label for="c">{{question.c}}</label>
+        </div>
+        <div>
+          <input type="radio" id="d" name="{{question.id}}" value="d">
+          <label for="d">{{question.d}}</label>
+        </div>
+        <div>
+          <input type="radio" id="e" name="{{question.id}}" value="e">
+          <label for="e">{{question.e}}</label>
+        </div>
+    </div>
+        {% endfor %}
+        <input type="submit" value="Submit">
+    </fieldset>
+    <input type="hidden" name="category" value="{{category}}">
+</form>
+
+</div>
+</form>
+{% endblock %}
