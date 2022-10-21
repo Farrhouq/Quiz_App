@@ -18,5 +18,5 @@
     <p style="background: green;width:fit-content;padding: 5px;border-radius: 5px;"><a style="color: white;" href="{% url 'home' %}">Play Again</a></p>
     <h1><a href="{% url 'view_high_scores' category.id %}">View HighScores</a></h1>
 </div>
-<h1>{{category}}</h1>
+<h1>{{category.highscoreset.name}}</h1>
 {% endblock %}

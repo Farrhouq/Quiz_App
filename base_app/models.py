@@ -30,12 +30,9 @@ class Question(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     points = models.IntegerField()
 
-class HighScoreSet(models.Model):
-    category = models.OneToOneField(Category, on_delete=models.CASCADE)
-    data = list()
 
 class UserResults(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    
+    score = models.IntegerField()
 

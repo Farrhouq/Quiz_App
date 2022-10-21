@@ -73,7 +73,7 @@ def category(request, pk):
 
 def results(request):
     questions = []
-    category = request.POST.get('category')
+    category = request.POST.get("category")
     category = models.Category.objects.get(name=category)
     questions = category.question_set.all()
 
@@ -104,8 +104,10 @@ def results(request):
         score += r.points
 
     if request.user.is_authenticated:
-        category.highscoreset.data.append((request.user.username, score))
-        
+        models.UserResults.objects.create(
+            category=category, user=request.user, score=score
+        )
+
     context = {
         "questions": questions,
         "response_sets": response_sets,
@@ -117,7 +119,9 @@ def results(request):
 
 def view_high_scores(request, pk):
     category = models.Category.objects.get(id=pk)
-    high_scores = category.highscoreset.data
+    high_scores = []
+    for result_set in category.userresults_set.all():
+        high_scores.append((result_set.user.username, result_set.score))
 
     class PseudoScoreSet:
         def __init__(self, tup):
@@ -125,7 +129,6 @@ def view_high_scores(request, pk):
             self.name = tup[1][0]
             self.score = tup[1][1]
 
-   
     def sort_tuples(tup):
         def sort_tuple_list(tup):
             nums = [b for (a, b) in tup]
@@ -140,19 +143,21 @@ def view_high_scores(request, pk):
             for _ in sorted_tuple_list:
                 tup.append(_)
             return sorted_tuple_list
+
         def sort_tuple_list2(tup):
-            nums  = [b for (a,b) in tup]
+            nums = [b for (a, b) in tup]
             reps = {re for re in nums if nums.count(re) > 1}
             for rep in reps:
-                nums = [b for (a,b) in tup]
+                nums = [b for (a, b) in tup]
                 rep_count = nums.count(rep)
                 occ1 = nums.index(rep)
                 nums.reverse()
                 occ2 = nums.index(rep)
-                slise = tup[occ1:len(tup)-occ2]
+                slise = tup[occ1 : len(tup) - occ2]
                 slise.sort()
-                tup[occ1:len(tup) - occ2] = slise
+                tup[occ1 : len(tup) - occ2] = slise
             return tup
+
         tup = sort_tuple_list(sort_tuple_list2(tup))
         final_sorted = []
         nums = [b for (a, b) in tup]
@@ -163,16 +168,16 @@ def view_high_scores(request, pk):
             fin.append((final_sorted[i], tup[i]))
         return fin
 
-    category.highscoreset.data =  sort_tuples(high_scores)
+    high_scores = sort_tuples(high_scores)
     pseudo_scores = []
-    for score_set in category.highscoreset.data:
+    for score_set in high_scores:
         pseudo_scores.append(PseudoScoreSet(score_set))
 
     context = {
-    "pseudo_scores": pseudo_scores,
-     'category': category, 
-     'high_scores':high_scores,
-     }
+        "pseudo_scores": pseudo_scores,
+        "category": category,
+        "high_scores": high_scores,
+    }
     return render(request, "high_scores.html", context)
 
 
