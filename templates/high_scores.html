@@ -1,27 +1,41 @@
-{% extends 'main.html' %}
+{% extends 'main.html' %} {% block content %}
 
-{% block content %}
-
-
-<div class="container" >
-  <h1>{{category}}</h1>
-<table class="table ">
+<div
+  class="container container-form flexb"
+  style="font-size: xx-large; color: yellowgreen; margin-top: 1rem"
+>
+  <strong>HALL OF FAME - {{name}}</strong>
+</div>
+<div class="container container-form" style="width: 100%; margin-top: 2rem">
+  <table class="table table-dark">
     <thead>
       <tr>
-        <th scope="col">#</th>
+        <th scope="col">Rank</th>
         <th scope="col">Name</th>
         <th scope="col">Score</th>
       </tr>
     </thead>
     <tbody>
-    {% for score_set in pseudo_scores %}
-      <tr >
-        <th scope="row">{{score_set.position}}</th>
-        <td>{{score_set.name}}</td>
-        <td>{{score_set.score}}</td>
+      {% for score_set in pseudo_scores %}
+      <tr>
+        <th scope="row" style="background-color: rgb(14, 130, 238)">
+          {{score_set.position}}
+        </th>
+        <td class="table-dark">{{score_set.name}}</td>
+        <td class="table-success" style="color: rgb(14, 130, 238)">
+          <strong>{{score_set.score}}</strong>
+        </td>
       </tr>
-    {% endfor %}
+      {% endfor %}
     </tbody>
   </table>
+  {% if request.user.is_superuser and count > 0 %}
+  <a
+    href="{% url 'reset' category.id %}"
+    class="btn btn-danger"
+    style="margin-bottom: 2rem"
+    >Reset Highscores</a
+  >
+  {% endif %}
 </div>
 {% endblock %}

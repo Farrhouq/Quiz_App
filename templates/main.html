@@ -1,19 +1,70 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quiz App</title>
-    <link rel="stylesheet" href="{% static 'bootstrap.css' %}">
-</head>
-<body>
-    {% include 'navbar.html' %}
-    {% block content %}
-    
-
-    {% endblock %}
-    
-</body>
+    <link rel="stylesheet" href="{% static 'bootstrap.css' %}" />
+    <style>
+      .nvl {
+        color: rgb(14, 130, 238);
+      }
+      .container-form {
+        width: 50%;
+        color: rgb(14, 130, 238);
+        margin: auto;
+        margin-top: 4%;
+        width: 35%;
+        height: fit-content;
+        border: 1px solid white;
+        padding: 1rem;
+      }
+      .inp {
+        height: 2.3rem;
+        padding: 1rem;
+        border-radius: 3px;
+        border: 1px solid white;
+        background: rgb(14, 130, 238);
+        color: white;
+        margin-top: 1%;
+      }
+      .hightem {
+        background-color: rgb(14, 130, 238);
+        width: 80%;
+        padding: 1%;
+        margin-top: 10%;
+        border-width: 1.5px;
+      }
+      .btny {
+        width: 100%;
+        border: 1px solid white;
+        height: 50%;
+        background-color: white;
+        color: rgb(9, 4, 80);
+      }
+      .hightem:hover {
+        border: 2px solid white;
+      }
+      .cf2 {
+        width: 100%;
+        margin-bottom: 2%;
+      }
+      ::placeholder {
+        color: white;
+        font-style: italic;
+      }
+      .flexb {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: fit-content;
+        height: fit-content;
+      }
+    </style>
+  </head>
+  <body style="background-color: rgb(9, 4, 80)">
+    {% include 'navbar.html' %} {% block content %} {% endblock %}
+  </body>
 </html>

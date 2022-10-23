@@ -10,12 +10,12 @@
 >
   <form action="" method="POST">
     {% csrf_token %}
-    <h2>Are you sure you want to delete this {{obj}}?</h2>
+    <h2>Are you sure you want to reset all {{name}} highscores?</h2>
     <input
       type="submit"
       class="btn btn-danger"
       style="margin-left: 20%; width: 20%"
-      value="Delete"
+      value="Reset"
     />
     <a
       style="margin: 2%; width: 20%"

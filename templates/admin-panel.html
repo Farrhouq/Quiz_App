@@ -1,22 +1,89 @@
-{% extends  'main.html' %}
-{% block content %}
+{% extends 'main.html' %} {% block content %}{% load static %}
 
-<div class="container">
-{% for pseudo_category in pseudo_categories %}
-    <h1 style="color: yellowgreen;">{{pseudo_category.name}}</h1>
-    {% for question in pseudo_category.questions %}
-    <h4>{{question.question}}</h4>
-    <p>a. {{question.a}}</p>
-    <p>b. {{question.b}}</p>
-    <p>c. {{question.c}}</p>
-    <p>d. {{question.d}}</p>
-    <p>e. {{question.e}}</p>
-    <a style="margin-bottom: 50px;" class="btn btn-danger" href="{% url 'delete_question' question.id %}">Delete Question</a>
-    <a style="margin-bottom: 50px;" class="btn btn-info" href="{% url 'edit_question' question.id %}">Edit</a>
-    {% endfor %}
-    <p><a href="{% url 'add-to-category' pseudo_category.id %}" class="btn btn-success" >Add a Question in this Category</a></p>
-
-
-{% endfor %}
+<h2 style="color: rgb(14, 130, 238); margin: 1% 2%">(Admin Mode)</h2>
+<div
+  class="container container-form"
+  style="
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+  "
+>
+  <form action="" method="POST">
+    {% csrf_token %}
+    <input class="inp" type="text" placeholder="Category name..." name="name" />
+    <input
+      type="submit"
+      value="Add Category"
+      class="btn btn-light"
+      style="margin-top: -1.5%"
+    />
+  </form>
 </div>
+<div class="container container-form" style="width: 70%; margin-bottom: 10%">
+  {% for pseudo_category in pseudo_categories %}
+  <div class="big">
+    <div
+      class="title btn"
+      style="background-color: yellowgreen; cursor: pointer; margin-bottom: 2%"
+    >
+      <h1>{{pseudo_category.name}}</h1>
+    </div>
+    <a class="btn btn-dark" href="{% url 'edit_category' pseudo_category.id %}"
+      >Edit</a
+    >
+    <a
+      class="btn btn-danger"
+      href="{% url 'delete_category' pseudo_category.id %}"
+      >Delete</a
+    >
+
+    <a
+      href="{% url 'add-to-category' pseudo_category.id %}"
+      class="btn btn-success"
+      >Add a Question in this Category</a
+    >
+
+    <a href="{% url 'reset' pseudo_category.id %}" class="btn btn-danger"
+      >Clear Highscores</a
+    >
+
+    <div class="to-hide">
+      {% for question in pseudo_category.questions %}
+      <div class="container container-form cf2">
+        <h4>{{question.question}}</h4>
+        <p>a. {{question.a}}</p>
+        <p>b. {{question.b}}</p>
+        <p>c. {{question.c}}</p>
+        <p>d. {{question.d}}</p>
+        {% if question.e != '' %}
+        <p>e. {{question.e}}</p>
+        {% endif %}
+        <a class="btn btn-danger" href="{% url 'delete_question' question.id %}"
+          >Delete Question</a
+        >
+        <a class="btn btn-info" href="{% url 'edit_question' question.id %}"
+          >Edit</a
+        >
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<script src="{% static 'jquery-3.6.1.js' %}"></script>
+<script>
+  var titles = document.querySelectorAll(".big");
+  for (let title of titles) {
+    let to_hide = title.lastElementChild;
+    $(to_hide).hide();
+  }
+  for (let title of titles) {
+    title.firstElementChild.addEventListener("click", function () {
+      let to_hide = title.lastElementChild;
+      $(to_hide).toggle(700);
+    });
+  }
+</script>
 {% endblock %}

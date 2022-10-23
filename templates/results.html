@@ -1,22 +1,75 @@
-{% extends 'main.html' %}
+{% extends 'main.html' %} {% block content %}
 
-{% block content %}
+<div class="container" style="margin-top: 1rem">
+  {% for response in response_sets %}
+  <div class="container-form" style="width: 100%">
+    <h2>{{response.q}}</h2>
+    {% if response.is_correct %}
+    <h6
+      style="
+        background: yellowgreen;
+        width: fit-content;
+        padding: 10px;
+        border-radius: 5px;
+        color: green;
+      "
+    >
+      Answer chosen: {{response.chosen}} ({{response.supp}})
+    </h6>
+    {% else %}
+    <h6
+      style="
+        background: rgb(248, 154, 170);
+        width: fit-content;
+        padding: 10px;
+        border-radius: 5px;
+        color: red;
+      "
+    >
+      Answer chosen: {{response.chosen}} ({{response.supp}})
+    </h6>
+    {% endif %} {% if not response.is_correct %}
+    <h6
+      style="
+        background: yellowgreen;
+        width: fit-content;
+        padding: 10px;
+        border-radius: 5px;
+        color: green;
+      "
+    >
+      Correct Answer: {{response.correct_answer}} ({{response.correct_choice}})
+    </h6>
+    {% endif %}
+    <p>Points awarded: {{response.points}}</p>
+  </div>
+  {% endfor %}
+  <h2 style="color: white">Total Score: {{score}} points</h2>
+  <a
+    class="btn btn-success"
+    style="color: white; margin-right: 2%"
+    href="{% url 'category' category.id %}"
+    >Play Again</a
+  >
 
-<div class="container" style="margin-top: 1rem;">
-    {% for response in response_sets %}
-    <div style="background-color: pink;width:40%;padding:1rem;margin:2rem;border-radius: 10px;">
-        <h2>{{response.q}}</h2>
-        <p style="background: aliceblue;width:fit-content;padding: 10px;border-radius: 5px;">Answer chosen: {{response.a}}</p>
-        <p style="background: green;color:aliceblue;width:fit-content;padding: 5px;border-radius: 5px;">Correct = {{response.is_correct}}</p>
-        {% if not response.is_correct %}
-        <p style="background: aliceblue;width:fit-content;padding: 10px;border-radius: 5px;">Correct Answer: {{response.correct_answer}}</p>
-        {% endif %}
-        <p>Points awarded: {{response.points}}</p>
-    </div>
-    {% endfor %}
-    <h2>Total Score: {{score}} points</h2>
-    <p style="background: green;width:fit-content;padding: 5px;border-radius: 5px;"><a style="color: white;" href="{% url 'home' %}">Play Again</a></p>
-    <h1><a href="{% url 'view_high_scores' category.id %}">View HighScores</a></h1>
+  {% if request.user.is_authenticated %}
+  <a
+    style="margin-right: 2%; color: black"
+    class="btn btn-info"
+    href="{% url 'view_high_scores' category.id %}"
+    ><strong>View HighScores</strong></a
+  >
+  {% else %}
+  <a
+    style="margin-left: 2%; color: black"
+    class="btn btn-info"
+    href="{% url 'login' %}"
+    ><strong>Login to view highscores</strong></a
+  >
+  {% endif %}
+  <a class="btn btn-success" style="color: white" href="{% url 'home' %}"
+    >Home</a
+  >
 </div>
 <h1>{{category.highscoreset.name}}</h1>
 {% endblock %}

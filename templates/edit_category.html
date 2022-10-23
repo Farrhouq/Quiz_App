@@ -1,0 +1,15 @@
+{% extends 'main.html' %} {% block content %}
+<div class="conatainer container-form">
+  <form action="" method="POST">
+    {% csrf_token %} Category Name:
+    <input
+      class="inp"
+      style="background: white; color: black"
+      type="text"
+      name="name"
+      value="{{category.name}}"
+    />
+    <input type="submit" class="btn btn-success" style="margin-top: -1.5%" />
+  </form>
+</div>
+{% endblock %}

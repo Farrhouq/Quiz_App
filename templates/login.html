@@ -1,21 +1,23 @@
 {% extends 'main.html' %}
 
 {% block content %}
-
+{% load crispy_forms_tags %}
+<div class="container container-form">
 <form action="" method="POST">
 {% csrf_token%}
-<div style="padding: 20px;">
-<label for="username">Username: </label>
-<input type="text" name="username" id="username" placeholder="Enter username...">
-</div>
-<div style="padding: 20px;">
-<label for="username">Password: </label>
-<input type="password" name="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" >
-</div>
-<div style="padding: 20px;width: fit-content;">
-    <input type="submit" value="Submit">
+
+<div class="mb-3">
+    <label for="formGroupExampleInput" class="form-label">Username</label>
+    <input type="text" class="form-control" name="username" id="formGroupExampleInput" placeholder="Enter username...">
+  </div>
+  <div class="mb-3">
+    <label for="formGroupExampleInput2" class="form-label">Password</label>
+    <input type="password" name="password" class="form-control" id="formGroupExampleInput2" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;">
+  </div>
+  <p style="margin-bottom: 1rem;color: white;">Not registered yet? <a style="color: pink;"  href="{% url 'register' %}">Sign Up</a></p>
+  <input type="submit" value="Login" class="btn btn-success" style="margin: 15px 0;">
 </div>
 </form>
-
+</div>
 
 {% endblock content %}

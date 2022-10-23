@@ -1,10 +1,23 @@
-{% extends 'main.html' %}
-
-{% block content %}
-<div class="container">
-<h1>Select category below: </h1>
-{% for category in categories %}
-<p><a href="{% url 'view_high_scores' category.id  %}">{{category}}</a></p>
-{% endfor %}
+{% extends 'main.html' %} {% block content %}
+<div class="container container-form" style="width: 100%">
+  <h1>Select category below:</h1>
+  <div
+    style="
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      padding: 1.5%;
+    "
+  >
+    {% for category in categories %}
+    <a class="beans" href="{% url 'view_high_scores' category.id  %}">
+      <div class="hightem btn">
+        <div class="btny"><h4>{{category.name}}</h4></div>
+        <p>
+          <strong><h5>Highest Score: {{category.highest_score}}</h5></strong>
+        </p>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}

@@ -13,6 +13,9 @@ urlpatterns = [
     path('inter', views.inter, name='inter'),
     path('admin_panel', views.admin_panel, name='admin_panel'),
     path('delete_question/<str:pk>/', views.delete_question, name='delete_question'),
+    path('delete_category/<str:pk>/', views.delete_category, name='delete_category'),
     path('add_to_category/<str:pk>/', views.add_to_category, name='add-to-category'),
     path('edit_question/<str:pk>/', views.edit_question, name='edit_question'),
+    path('edit_category/<str:pk>/', views.edit_category, name='edit_category'),
+    path('reset/<str:pk>/', views.reset_highscores, name='reset')
 ]
